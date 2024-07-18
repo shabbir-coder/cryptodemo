@@ -22,7 +22,7 @@ const CoinTable = ({ data }: CoinTableProps) => {
             {data.length ?
             ( data?.map((entry, index)=>(
                 <tr key={index}>
-                    <td className="py-2 px-4 border-b">{entry.price.toFixed(5)}</td>
+                    <td className="py-2 px-4 border-b">{entry.price}</td>
                     <td className="py-2 px-4 border-b">{entry.priceChange.toFixed(3)} %</td>
                     <td className="py-2 px-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
                 </tr>

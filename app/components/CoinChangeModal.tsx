@@ -10,12 +10,13 @@ interface ModalProps {
 }
 
 function CoinChangeModal({ isOpen, onClose }: ModalProps) {
-  if (!isOpen) return null;
-
-  const cryptoOptions = ['bitcoin', 'ethereum', 'cardano', 'solana', 'ripple']
-
+  
   const [coin, setCoin] = useState('')
   const dispatch  = useDispatch()
+  
+  if (!isOpen) return null;
+  
+  const cryptoOptions = ['bitcoin', 'ethereum', 'cardano', 'solana', 'ripple']
 
   const coinDispatch = () =>{
     console.log(coin);
