@@ -16,10 +16,10 @@ function CoinChangeModal({ isOpen, onClose }: ModalProps) {
   
   if (!isOpen) return null;
   
-  const cryptoOptions = ['bitcoin', 'ethereum', 'cardano', 'solana', 'ripple']
+  const cryptoOptions = ['bitcoin', 'ethereum', 'tether', 'solana', 'usd-coin', 'binancecoin', 'ripple', 'dogecoin', 'shiba-inu']
 
   const coinDispatch = () =>{
-    console.log(coin);
+    // console.log(coin);
     onClose()
     dispatch(addCoin(coin))
   }
@@ -39,13 +39,22 @@ function CoinChangeModal({ isOpen, onClose }: ModalProps) {
           ))}
         </select>
       </div>
+      <div className="flex gap-2">
       <button 
         // onClick={onClose}
         onClick={coinDispatch} 
-        className="mt-4 bg-red-500 text-white py-2 px-4 rounded"
+        className="mt-4 bg-green-500 text-white py-2 px-4 rounded"
+      >
+        Ok 
+      </button>
+      <button 
+        // onClick={onClose}
+        onClick={ onClose} 
+        className="mt-4 bg-gray-500 text-white py-2 px-4 rounded"
       >
         Close
       </button>
+      </div>
     </div>
   </div>
   );

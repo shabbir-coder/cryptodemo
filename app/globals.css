@@ -6,3 +6,24 @@
 .capitalize{
   text-transform: capitalize;
 }
+
+@media (max-width: 768px) {
+  .text-table,.text-time {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 576px) {
+  .text-table,.text-time {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 375px) {
+  .text-table {
+    font-size: 12px;
+  }
+  .text-time{
+    font-size: 10px;
+  }
+}

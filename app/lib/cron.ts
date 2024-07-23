@@ -14,7 +14,7 @@ interface PriceData {
 }
 
 async function fetchData() {
-  const symbols = ['bitcoin', 'ethereum', 'cardano', 'solana', 'ripple'];
+  const symbols = ['bitcoin', 'ethereum', 'tether', 'solana', 'usd-coin', 'binancecoin','ripple','dogecoin','shiba']
   const response = await axios.get(COINGECKO_API_URL, {
     params: {
       ids: symbols.join(','),
@@ -25,13 +25,14 @@ async function fetchData() {
   });
 
   const prices = response.data;
-  const priceData : any = symbols.map((symbol) => ({
+  const priceData = symbols.map((symbol) => ({
     symbol,
     price: prices[symbol].usd,
     priceChange: prices[symbol].usd_24h_change,
     lastUpdatedAt: prices[symbol].last_updated_at,
     timestamp: new Date(),
   }));
+
 
   return priceData;
 }
@@ -40,21 +41,14 @@ async function pollData() {
   await dbConnect();
 
   const prices = await fetchData();
-
   for (const price of prices) {
     const existingPrice = await Price.findOne({ symbol: price.symbol }).sort({ timestamp: -1 });
-    console.log('existingPrice',existingPrice)
 
     if (!existingPrice || existingPrice.lastUpdatedAt !== price.lastUpdatedAt) {
-      console.log('called')
-      console.log('price', price)
       await Price.create(price);
-      console.log(`Data for ${price.symbol} added:`, price);
-    } else {
-      console.log(`No new data for ${price.symbol}`);
     }
   }
 }
 
-// Schedule the task to run every 5 seconds
-cron.schedule('*/2* * * * *', pollData);
+// Schedule the task to run every 2 seconds
+cron.schedule('*/5* * * * *', pollData);

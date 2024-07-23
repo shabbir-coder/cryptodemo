@@ -13,23 +13,23 @@ const CoinTable = ({ data }: CoinTableProps) => {
       <table className="min-w-full bg-white">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b">Price</th>
-            <th className="py-2 px-4 border-b">Change %</th>
-            <th className="py-2 px-4 border-b">Updated At</th>
+            <th className="py-2 px-1 border-b text-table">Price</th>
+            <th className="py-2 px-1 border-b text-table">Change %</th>
+            <th className="py-2 px-1 border-b text-table">Updated At</th>
           </tr>
         </thead>
         <tbody>
             {data.length ?
             ( data?.map((entry, index)=>(
                 <tr key={index}>
-                    <td className="py-2 px-4 border-b">{entry.price}</td>
-                    <td className="py-2 px-4 border-b">{entry.priceChange.toFixed(3)} %</td>
-                    <td className="py-2 px-4 border-b">{new Date(entry.timestamp).toLocaleString()}</td>
+                    <td className="py-2 px-1 border-b text-table">{entry.price}</td>
+                    <td className="py-2 px-1 border-b text-table">{entry.priceChange.toFixed(3)} %</td>
+                    <td className="py-2 px-1 border-b text-time">{new Date(entry.timestamp).toLocaleString()}</td>
                 </tr>
             ))):
                 (
                     <tr>
-                        <td className="py-2 px-4 border-b" colSpan={3}>No data found</td>
+                        <td className="py-2 px-1 border-b" colSpan={3}>No data found</td>
                     </tr>
                 )
             }
