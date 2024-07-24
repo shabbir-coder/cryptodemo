@@ -1,4 +1,6 @@
-import cron from 'node-cron';
+// pages/api/pollData.ts
+
+import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import dbConnect from './mongodb';
 import Price from '../models/Price';
@@ -8,19 +10,19 @@ const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/simple/price';
 interface PriceData {
   symbol: string;
   price: number;
-  change: number;
+  priceChange: number;
   lastUpdatedAt: number;
   timestamp: Date;
 }
 
 async function fetchData() {
-  const symbols = ['bitcoin', 'ethereum', 'tether', 'solana', 'usd-coin', 'binancecoin','ripple','dogecoin','shiba']
+  const symbols = ['bitcoin', 'ethereum', 'tether', 'solana', 'usd-coin', 'binancecoin', 'ripple', 'dogecoin', 'shiba'];
   const response = await axios.get(COINGECKO_API_URL, {
     params: {
       ids: symbols.join(','),
       vs_currencies: 'usd',
       include_24hr_change: true,
-      include_last_updated_at: true
+      include_last_updated_at: true,
     },
   });
 
@@ -33,22 +35,28 @@ async function fetchData() {
     timestamp: new Date(),
   }));
 
-
   return priceData;
 }
 
 async function pollData() {
+  console.log('Polling data...');
   await dbConnect();
 
   const prices = await fetchData();
+  console.log('Fetched prices:', prices);
   for (const price of prices) {
     const existingPrice = await Price.findOne({ symbol: price.symbol }).sort({ timestamp: -1 });
 
     if (!existingPrice || existingPrice.lastUpdatedAt !== price.lastUpdatedAt) {
       await Price.create(price);
+      console.log(`Data for ${price.symbol} added:`, price);
+    } else {
+      console.log(`No new data for ${price.symbol}`);
     }
   }
 }
 
-// Schedule the task to run every 2 seconds
-cron.schedule('*/5* * * * *', pollData);
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await pollData();
+  res.status(200).json({ message: 'Data polled successfully' });
+}
