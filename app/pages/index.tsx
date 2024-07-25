@@ -1,7 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap CSS
 import CoinDashboard from '../components/CoinDashboard';
-import '../lib/cron'; 
-
 
 const Home = () => {
   return (

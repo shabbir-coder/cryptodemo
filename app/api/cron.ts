@@ -2,7 +2,7 @@
 
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
-import dbConnect from './mongodb';
+import dbConnect from '../lib/mongodb';
 import Price from '../models/Price';
 
 const COINGECKO_API_URL = 'https://api.coingecko.com/api/v3/simple/price';

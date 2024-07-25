@@ -1,13 +1,8 @@
 
   {
-    "functions": {
-      "api/pollData.ts": {
-        "runtime": "vercel-experimental"
-      }
-    },
     "crons": [
       {
-        "path": "/api/lib/cron",
+        "path": "/api/cron",
         "schedule": "*/2* * * * *"
       }
     ]

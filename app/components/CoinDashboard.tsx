@@ -29,9 +29,9 @@ const CoinDashboard = () => {
 
         fetchCoinData();
         setCoinImage(`/images/${coinName.split('-')[0]}.webp`)
-        const intervalId = setInterval(fetchCoinData, 5000);
+        // const intervalId = setInterval(fetchCoinData, 5000);
 
-        return () => clearInterval(intervalId);
+        // return () => clearInterval(intervalId);
     }, [coinName]);
 
     const handleOpenModal = () => {
