@@ -16,7 +16,7 @@ const Home = () => {
       }
     };
 
-    startTask();
+    // startTask();
 
     // No need to stop the task on unmount as it should keep running in the background
   }, []);

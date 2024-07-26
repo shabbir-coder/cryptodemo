@@ -29,7 +29,7 @@ const CoinDashboard = () => {
 
         fetchCoinData();
         setCoinImage(`/images/${coinName.split('-')[0]}.webp`)
-        const intervalId = setInterval(fetchCoinData, 10000);
+        const intervalId = setInterval(fetchCoinData, 30000);
 
         return () => clearInterval(intervalId);
     }, [coinName]);
