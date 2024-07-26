@@ -2,7 +2,6 @@ import type { NextApiResponse } from 'next';
 import dbConnect from '../../lib/mongodb';
 import Price from '../../models/Price';
 
-
 export const fetchPrices = async (coin: string) => {
   await dbConnect();
 
